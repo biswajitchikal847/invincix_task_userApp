@@ -11,7 +11,7 @@ function App() {
 
   const getUsers = async () => {
     setLoading(true);
-    let url = `https://reqres.in/api/users?per_page=${perPage}&page=${page}`
+    let url = `https://reqres.in/api/users?per_page=${perPage}&page=${page}`;
     let res = await fetch(url);
     let data = await res.json();
     console.log(data)
@@ -21,6 +21,10 @@ function App() {
     setLoading(false);
 
 
+  }
+
+  const handleOnclick = () => {
+    setPage(page + 1)
   }
 
   useEffect(() => {
@@ -44,7 +48,9 @@ function App() {
             </div>
           })}
           <div className="clearfix"></div>
-          {totalPage !== page && <button className="btn btn-primary" onClick={() => setPage(page + 1)}>{loading ? 'Loading...' : 'Load More'}</button>}
+          {totalPage !== page && 
+          <button className="btn btn-primary" onClick={handleOnclick}>
+          {loading ? 'Loading...' : 'Load More'}</button>}
         </div>
         <div className="col-3"></div>
       </div>
