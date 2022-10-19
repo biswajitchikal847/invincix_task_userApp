@@ -11,7 +11,7 @@ const Userprofile = () => {
   const [page, setPage] = useState(1);
   const [users, setusers] = useState([]);
   const [loading, setLoading] = useState(false);
-  let componentMounted = true;
+ 
 
   const getUsers = async () => {
     setLoading(true);
@@ -24,10 +24,7 @@ const Userprofile = () => {
     
         setTotalPage(data.total_pages);
         setLoading(false);
-        return () => {
-            componentMounted = false;
-    
-          }
+      
     }catch(e){
         console.log(e);
     }
