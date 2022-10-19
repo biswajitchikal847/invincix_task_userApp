@@ -2,6 +2,7 @@
 import { useEffect, useState } from 'react';
 import './UserProfile.css';
 import { Link } from "react-router-dom";
+import { BsArrowRightCircleFill } from "react-icons/bs";
 
 
 const Userprofile = () => {
@@ -15,17 +16,22 @@ const Userprofile = () => {
   const getUsers = async () => {
     setLoading(true);
     let url = `https://reqres.in/api/users?per_page=${perPage}&page=${page}`;
-    let res = await fetch(url);
-    let data = await res.json();
-    console.log(data)
-    setusers([...users, ...data.data]);
-
-    setTotalPage(data.total_pages);
-    setLoading(false);
-    return () => {
-        componentMounted = false;
-
-      }
+    try{
+        let res = await fetch(url);
+        let data = await res.json();
+        console.log(data)
+        setusers([...users, ...data.data]);
+    
+        setTotalPage(data.total_pages);
+        setLoading(false);
+        return () => {
+            componentMounted = false;
+    
+          }
+    }catch(e){
+        console.log(e);
+    }
+   
 
   }
 
@@ -44,14 +50,14 @@ const Userprofile = () => {
     <div className="container" style={{ padding: 20 }}>
       <div className="row">
         <div className="col-3"></div>
-        <div class="col-6">
+        <div className="col-6">
           <h3>All Users List</h3>
           {users.map((user, i) => {
             return <div key={i} className="box">
               <img src={user.avatar} />
               <div className="name">{user.first_name} {user.last_name}</div>
-              <div className="email">{user.email}</div>
-              <Link to={`/users/${user.id}`} className="btn btn-primary details_btn">see more</Link>
+              {/* <div className="email">{user.email}</div> */}
+              <Link to={`/users/${user.id}`} className="btn btn-primary details_btn"><BsArrowRightCircleFill /></Link>
             </div>
           })}
           <div className="clearfix"></div>
